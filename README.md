@@ -9,11 +9,6 @@
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-  <!-- React + ReactDOM + Babel -->
-  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-
   <style>
     :root { --brand:#0b7a4d; }
     body { background:#f8f9fa; padding-top:70px; font-family: 'Helvetica Neue', Arial, sans-serif; }
@@ -30,89 +25,56 @@
   </style>
 </head>
 <body>
-<div id="root"></div>
-
-<script type="text/babel">
-
-const { useState, useEffect } = React;
-
-function App(){
-  const [page, setPage] = useState('home');
-  const [session, setSession] = useState(null);
-
-  function handleLogin(email, pass) { /* Part 4 এ যোগ করা হবে */ }
-  function handleSignup(name, email, pass) { /* Part 4 এ যোগ করা হবে */ }
-  function handleLogout() { setSession(null); setPage('home'); }
-
-  return (
-    <div>
-      <Navbar page={page} setPage={setPage} session={session} onLogout={handleLogout} />
-
-      <main className="container">
-        {/* Pages will be inserted here in Part 2 & Part 3 */}
-      </main>
-
-      {session && <div className="admin-badge">
-        <div className="card shadow-sm">
-          <div className="card-body p-2">
-            <small>Signed in as <strong>{session.name}</strong></small>
-            <div className="mt-2 d-flex gap-2">
-              <button className="btn btn-sm btn-outline-primary" onClick={()=>setPage('admin')}>Admin</button>
-              <button className="btn btn-sm btn-outline-danger" onClick={handleLogout}>Logout</button>
-            </div>
-          </div>
-        </div>
-      </div>}
-
-      <Footer />
+<nav class="navbar fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#" onclick="showPage('home')">Shakib Al Hasan</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+      <span class="navbar-toggler-icon" style="color:#fff">☰</span>
+    </button>
+    <div class="collapse navbar-collapse" id="navmenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('home')">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('biography')">Biography</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('career')">Career</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('achievements')">Achievements</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('records')">Records</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('gallery')">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('media')">Media</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('contact')">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('admin')">Admin</a></li>
+      </ul>
     </div>
-  );
+  </div>
+</nav>
+
+<div class="container" id="main-content"></div>
+
+<footer>
+  <div class="container text-center">
+    <small>© 2025 Shakib Al Hasan Fan/Info Site</small>
+  </div>
+</footer>
+
+<script>
+const pages = {
+  home: `<div class="hero"><h1>শাকিব আল হাসান</h1><p>বিশ্বের সেরা অলরাউন্ডার ক্রিকেটার</p></div>`,
+  biography: `<div class="page-section"><h2>Biography</h2><p>শাকিব আল হাসান বাংলাদেশের কিংবদন্তি ক্রিকেটার, অলরাউন্ডার হিসেবে বিশ্বে সেরা। জন্ম: ২৪ মার্চ ১৯৮৭, মাগুরা, বাংলাদেশ।</p></div>`,
+  career: `<div class="page-section"><h2>Career</h2><p>শাকিব জাতীয় এবং আন্তর্জাতিক ক্রিকেটে অসাধারণ পারফরম্যান্স দেখিয়েছেন। ওয়ার্ল্ড টি-২০, ওয়ানডে এবং টেস্টে গুরুত্বপূর্ণ অবদান।</p></div>`,
+  achievements: `<div class="page-section"><h2>Achievements</h2><ul><li>ICC Player of the Year 2012</li><li>Multiple double centuries</li><li>Captain of Bangladesh National Team</li></ul></div>`,
+  records: `<div class="page-section"><h2>Records</h2><ul><li>Bangladesh highest wicket-taker in Tests & ODIs</li><li>Leading all-rounder in ICC rankings</li></ul></div>`,
+  gallery: `<div class="page-section"><h2>Gallery</h2><div class="row"><div class="col-md-4 mb-3"><img class="card-img-thumb" src="https://i.ibb.co/W2Z4j9X/shakib1.jpg" alt="Shakib"></div><div class="col-md-4 mb-3"><img class="card-img-thumb" src="https://i.ibb.co/0yFh0yJ/shakib2.jpg" alt="Shakib"></div><div class="col-md-4 mb-3"><img class="card-img-thumb" src="https://i.ibb.co/Wk6zVt2/shakib3.jpg" alt="Shakib"></div></div></div>`,
+  media: `<div class="page-section"><h2>Media</h2><p>শাকিবের সাম্প্রতিক খেলার ভিডিও ও সংবাদ:</p><iframe width="100%" height="315" src="https://www.youtube.com/embed/abcd1234" frameborder="0" allowfullscreen></iframe></div>`,
+  contact: `<div class="page-section"><h2>Contact</h2><p>সরাসরি যোগাযোগের জন্য ফর্ম:</p><form><input class="form-control mb-2" placeholder="Name"><input class="form-control mb-2" placeholder="Email"><textarea class="form-control mb-2" placeholder="Message"></textarea><button class="btn btn-success">Send</button></form></div>`,
+  admin: `<div class="page-section"><h2>Admin Panel</h2><p>এইখানে Frontend simulation ব্যবহার করে ডেটা update করা যাবে।</p></div>`
+};
+
+function showPage(page){
+  const container = document.getElementById('main-content');
+  container.innerHTML = pages[page] || `<p>Page not found.</p>`;
 }
 
-/* ---------- Navbar ---------- */
-function Navbar({ page, setPage, session, onLogout }) {
-  return (
-    <nav className="navbar fixed-top">
-      <div className="container">
-        <a className="navbar-brand" href="#" onClick={(e)=>{e.preventDefault(); setPage('home');}}>Shakib Al Hasan</a>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
-          <span className="navbar-toggler-icon" style={{color:'#fff'}}>☰</span>
-        </button>
-        <div className="collapse navbar-collapse" id="navmenu">
-          <ul className="navbar-nav ms-auto">
-            <li className="nav-item"><a className="nav-link" href="#" onClick={(e)=>{e.preventDefault(); setPage('home');}}>Home</a></li>
-            <li className="nav-item"><a className="nav-link" href="#" onClick={(e)=>{e.preventDefault(); setPage('biography');}}>Biography</a></li>
-            <li className="nav-item"><a className="nav-link" href="#" onClick={(e)=>{e.preventDefault(); setPage('career');}}>Career</a></li>
-            <li className="nav-item"><a className="nav-link" href="#" onClick={(e)=>{e.preventDefault(); setPage('achievements');}}>Achievements</a></li>
-            <li className="nav-item"><a className="nav-link" href="#" onClick={(e)=>{e.preventDefault(); setPage('records');}}>Records</a></li>
-            <li className="nav-item"><a className="nav-link" href="#" onClick={(e)=>{e.preventDefault(); setPage('gallery');}}>Gallery</a></li>
-            <li className="nav-item"><a className="nav-link" href="#" onClick={(e)=>{e.preventDefault(); setPage('media');}}>Media</a></li>
-            <li className="nav-item"><a className="nav-link" href="#" onClick={(e)=>{e.preventDefault(); setPage('contact');}}>Contact</a></li>
-            <li className="nav-item">
-              {session ?
-                <a className="nav-link" href="#" onClick={(e)=>{e.preventDefault(); setPage('admin');}}>Admin</a> :
-                <a className="nav-link" href="#" onClick={(e)=>{e.preventDefault(); setPage('login');}}>Admin Login</a>
-              }
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  );
-}
-
-/* ---------- Footer ---------- */
-function Footer() {
-  return (
-    <footer>
-      <div className="container text-center">
-        <small>© {new Date().getFullYear()} Shakib Al Hasan Fan/Info Site</small>
-      </div>
-    </footer>
-  );
-}
-
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+// default page
+showPage('home');
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
